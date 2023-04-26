@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 export const EditTodoForm = ({ editTodo, task }) => {
   const [value, setValue] = useState(task.task);
@@ -9,6 +10,7 @@ export const EditTodoForm = ({ editTodo, task }) => {
     // edit todo
     editTodo(value, task.id);
   };
+
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
       <input
@@ -19,8 +21,18 @@ export const EditTodoForm = ({ editTodo, task }) => {
         placeholder="Update task"
       />
       <button type="submit" className="todo-btn">
-        Add Task
+        Update Task
       </button>
     </form>
   );
+};
+
+EditTodoForm.propTypes = {
+  editTodo: PropTypes.func.isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    task: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+    isEditing: PropTypes.bool.isRequired,
+  }).isRequired,
 };
